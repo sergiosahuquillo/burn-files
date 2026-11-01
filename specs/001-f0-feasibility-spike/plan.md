@@ -28,7 +28,9 @@ Sin Hilt, Room, DataStore ni librería HTTP (ver *Complexity Tracking*).
 **Testing**: JUnit 5 (JVM) para lógica pura; Compose UI test instrumentado para los diálogos destructivos
 en emulador móvil y TV; validación manual según [quickstart.md](./quickstart.md).
 
-**Target Platform**: Android `minSdk` 26, `targetSdk`/`compileSdk` 36; móvil y Android TV / Fire OS 7+.
+**Target Platform**: Android `minSdk` 26, `targetSdk` 36, `compileSdk` 37 (las versiones estables actuales de
+Compose y Lifecycle exigen compilar contra 37; `targetSdk` sigue en 36 como fija la constitución); móvil y
+Android TV / Fire OS 7+.
 
 **Project Type**: mobile-app (herramienta de diagnóstico, no distribuida a usuarios finales)
 

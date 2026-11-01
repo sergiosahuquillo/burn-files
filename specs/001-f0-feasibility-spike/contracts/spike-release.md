@@ -31,8 +31,8 @@ If-None-Match: <ETag previo, si existe>
   `versionName` con `major * 10000 + minor * 100 + patch`).
 - `403`/`429` con `X-RateLimit-Remaining: 0` → resultado `RATE_LIMITED`, mostrando
   `X-RateLimit-Reset` en hora local.
-- Descarga: `browser_download_url` de cada asset, siguiendo redirecciones solo a `github.com` y
-  `objects.githubusercontent.com` (principio VI).
+- Descarga: `browser_download_url` de cada asset, siguiendo redirecciones solo por HTTPS a `api.github.com`,
+  `github.com`, `objects.githubusercontent.com` y `release-assets.githubusercontent.com` (principio VI).
 
 ## Reglas de verificación
 

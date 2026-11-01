@@ -8,7 +8,9 @@ Guía para ejecutar el spike de punta a punta en la matriz de dispositivos y com
 
 Requisitos: JDK 17, Android SDK con `platforms;android-36` y `build-tools;36.0.0` (ya instalados), ADB.
 
-Instalar las imágenes de Android TV y crear los emuladores D3/D4 (y D5 opcional):
+Instalar las imágenes de Android TV y crear los emuladores D3/D4 (y D5 opcional). `sdkmanager` y `avdmanager`
+vienen en *Android SDK Command-line Tools* (instalable desde Android Studio › SDK Manager › SDK Tools); también
+se pueden crear desde Android Studio › Device Manager eligiendo un perfil de TV:
 
 ```bash
 sdkmanager "system-images;android-30;android-tv;x86" "system-images;android-34;android-tv;x86"
@@ -36,8 +38,16 @@ Desde `spike/`:
 ./gradlew ktlintCheck detekt testDebugUnitTest assembleDebug
 ```
 
+Desde la raíz del repositorio:
+
 ```bash
 python tools/check_strings.py spike/app/src/main/res
+```
+
+Tests de UI (diálogos destructivos, móvil y TV) con un emulador o dispositivo conectado:
+
+```bash
+./gradlew connectedDebugAndroidTest
 ```
 
 **Esperado**: todo en verde; `spike/app/build/outputs/apk/debug/app-debug.apk` generado y < 15 MB.
