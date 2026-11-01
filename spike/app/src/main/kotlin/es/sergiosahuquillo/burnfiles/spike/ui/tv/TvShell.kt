@@ -76,7 +76,7 @@ private fun TvNavigation(home: HomeViewModel, matrixId: MatrixId) {
     LaunchedEffect(screen) {
         if (screen == null) {
             val target = lastScreen ?: Screen.initialFor(tested)
-            runCatching { itemFocus.getValue(target).requestFocus() }
+            requestFocusNextFrame(itemFocus.getValue(target))
         }
     }
 

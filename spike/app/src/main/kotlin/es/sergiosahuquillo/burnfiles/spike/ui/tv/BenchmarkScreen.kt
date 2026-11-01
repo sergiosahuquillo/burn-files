@@ -73,15 +73,23 @@ fun TvBenchmarkScreen() {
                     Text(stringResource(R.string.action_cancel))
                 }
             } else {
-                Button(onClick = viewModel::run, enabled = canRun, modifier = Modifier.focusRequester(runFocus)) {
+                Button(
+                    onClick = viewModel::run,
+                    enabled = canRun,
+                    modifier = Modifier.focusRequester(runFocus).focusableWhen(canRun)
+                ) {
                     Text(stringResource(R.string.benchmark_run))
                 }
                 OutlinedButton(
                     onClick = viewModel::generate,
                     enabled = !state.datasetComplete,
-                    modifier = Modifier.focusRequester(generateFocus)
+                    modifier = Modifier.focusRequester(generateFocus).focusableWhen(!state.datasetComplete)
                 ) { Text(stringResource(R.string.benchmark_generate)) }
-                OutlinedButton(onClick = viewModel::requestClean, enabled = state.hasDataset) {
+                OutlinedButton(
+                    onClick = viewModel::requestClean,
+                    enabled = state.hasDataset,
+                    modifier = Modifier.focusableWhen(state.hasDataset)
+                ) {
                     Text(stringResource(R.string.benchmark_clean))
                 }
             }
@@ -91,7 +99,8 @@ fun TvBenchmarkScreen() {
                 FilterChip(
                     selected = state.dataset == kind,
                     onClick = { viewModel.selectDataset(kind) },
-                    enabled = !state.busy
+                    enabled = !state.busy,
+                    modifier = Modifier.focusableWhen(!state.busy)
                 ) { Text(stringResource(kind.label)) }
             }
         }
@@ -122,5 +131,7 @@ fun TvBenchmarkScreen() {
             !state.datasetComplete -> generateFocus
             else -> runFocus
         }
-    InitialFocus(target, key = state.busy)
+    // Keyed on the target: the dataset state loads after the first frame and may disable the button
+    // that had focus.
+    InitialFocus(target, key = target)
 }

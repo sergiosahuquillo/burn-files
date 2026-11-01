@@ -172,7 +172,7 @@
     <string name="results_share_unavailable">No hay nada que compartir o ninguna app puede recibirlo. Usa el comando ADB de abajo.</string>
     <string name="results_adb">Recuperar por ADB</string>
     <string name="results_summary">Resumen</string>
-    <string name="results_summary_value">%1$d correctos de %2$d</string>
+    <string name="results_summary_value">Correctos: %1$d de %2$d</string>
     <string name="results_entries">Entradas</string>
     <string name="results_empty">Aún no hay resultados.</string>
     <string name="results_entry_title">%1$s · %2$s</string>

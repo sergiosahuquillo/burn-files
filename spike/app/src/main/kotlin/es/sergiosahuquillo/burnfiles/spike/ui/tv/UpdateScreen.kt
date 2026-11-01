@@ -54,18 +54,22 @@ fun TvUpdateScreen() {
         TvBody(updateStatus(state))
         updateLastStep(state)?.let { TvInfoRow(stringResource(R.string.update_last_step), it) }
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Button(onClick = viewModel::check, enabled = !state.busy, modifier = Modifier.focusRequester(checkFocus)) {
+            Button(
+                onClick = viewModel::check,
+                enabled = !state.busy,
+                modifier = Modifier.focusRequester(checkFocus)
+            ) {
                 Text(stringResource(R.string.update_check))
             }
             OutlinedButton(
                 onClick = viewModel::download,
                 enabled = state.phase == UpdatePhase.FOUND,
-                modifier = Modifier.focusRequester(downloadFocus)
+                modifier = Modifier.focusRequester(downloadFocus).focusableWhen(state.phase == UpdatePhase.FOUND)
             ) { Text(stringResource(R.string.update_download)) }
             OutlinedButton(
                 onClick = { activity?.let(viewModel::install) },
                 enabled = canInstall,
-                modifier = Modifier.focusRequester(installFocus)
+                modifier = Modifier.focusRequester(installFocus).focusableWhen(canInstall)
             ) { Text(stringResource(R.string.update_install)) }
             if (state.phase == UpdatePhase.DOWNLOADING) {
                 OutlinedButton(onClick = viewModel::requestCancel) { Text(stringResource(R.string.action_cancel)) }

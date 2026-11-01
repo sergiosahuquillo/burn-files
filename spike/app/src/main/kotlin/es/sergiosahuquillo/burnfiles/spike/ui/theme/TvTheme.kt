@@ -48,6 +48,9 @@ private fun SpikeColors.toTv(dark: Boolean): ColorScheme = if (dark) {
         onSurface = onSurface,
         surfaceVariant = surfaceVariant,
         onSurfaceVariant = onSurfaceVariant,
+        // Focused rows and buttons invert to these: the onSurface/surface pair, swapped.
+        inverseSurface = onSurface,
+        inverseOnSurface = surface,
         border = outline,
         error = error,
         onError = onError
@@ -66,6 +69,9 @@ private fun SpikeColors.toTv(dark: Boolean): ColorScheme = if (dark) {
         onSurface = onSurface,
         surfaceVariant = surfaceVariant,
         onSurfaceVariant = onSurfaceVariant,
+        // Focused rows and buttons invert to these: the onSurface/surface pair, swapped.
+        inverseSurface = onSurface,
+        inverseOnSurface = surface,
         border = outline,
         error = error,
         onError = onError
