@@ -49,7 +49,8 @@ class ResultsExporter(private val context: Context, private val log: ResultsLog)
         val values =
             ContentValues().apply {
                 put(MediaStore.Downloads.DISPLAY_NAME, name)
-                put(MediaStore.Downloads.MIME_TYPE, "text/plain")
+                // With text/plain MediaStore appends ".txt" to the unknown ".jsonl" extension.
+                put(MediaStore.Downloads.MIME_TYPE, "application/octet-stream")
                 put(MediaStore.Downloads.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/$FOLDER")
             }
         val resolver = context.contentResolver

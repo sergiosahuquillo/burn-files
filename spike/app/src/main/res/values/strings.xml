@@ -171,7 +171,7 @@
     <string name="results_share_unavailable">Nothing to share, or no app can receive it. Use the ADB command below.</string>
     <string name="results_adb">Retrieve with ADB</string>
     <string name="results_summary">Summary</string>
-    <string name="results_summary_value">%1$d OK of %2$d</string>
+    <string name="results_summary_value">OK: %1$d of %2$d</string>
     <string name="results_entries">Entries</string>
     <string name="results_empty">No results yet.</string>
     <string name="results_entry_title">%1$s · %2$s</string>

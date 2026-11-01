@@ -120,6 +120,8 @@ El mayor riesgo técnico del proyecto está aquí: en Android TV la pantalla de 
 3. Si no, modo degradado con `MediaStore` (cubre vídeos, audio, imágenes y descargas, que es lo que más ocupa en un TV).
 4. Pendrives USB: verificar en el spike si `MANAGE_EXTERNAL_STORAGE` da acceso de escritura al volumen USB en cada versión.
 
+**Resultado del spike F0** ([informe](spike/f0-results.md)): en emuladores Android TV la cadena llega a acceso total en las versiones 9, 11 y 14. En TV 11 no existe ninguna de las dos pantallas y el fallback por ADB funciona; en TV 14 el intent abre la lista de apps, no la ficha. El USB admite escritura directa con acceso total (API ≥ 30); en API < 30 la escritura directa da `EACCES` y en ningún TV existe el selector de carpetas (SAF), así que en Fire OS 7 el USB será de solo lectura salvo que el Fire TV real demuestre lo contrario.
+
 **Integración con el sistema**
 
 - Manifest: `<uses-feature android:name="android.software.leanback" android:required="false"/>` y `android.hardware.touchscreen` con `required="false"`, para que una misma APK sirva en móvil y TV.
@@ -201,10 +203,12 @@ El updater va en F1 a propósito: desde la v0.1 cada build de prueba llega sola 
 
 **Entregables del spike F0**
 
-- [ ] App mínima que pide acceso total en móvil, emuladores Android TV 11 y 14, y tu Fire TV; resultado documentado por versión.
-- [ ] Benchmark de recorrido NIO vs `File.listFiles` vs MediaStore con 100k+ archivos.
-- [ ] Instalación de una APK descargada con `PackageInstaller` en móvil y TV.
-- [ ] Escritura en pendrive USB desde TV.
+- [x] App mínima que pide acceso total en móvil, emuladores Android TV 11 y 14, y tu Fire TV; resultado documentado por versión. *(Fire TV sustituido por un emulador Android TV 9; el dispositivo real queda pendiente.)*
+- [x] Benchmark de recorrido NIO vs `File.listFiles` vs MediaStore con 100k+ archivos.
+- [x] Instalación de una APK descargada con `PackageInstaller` en móvil y TV.
+- [x] Escritura en pendrive USB desde TV. *(Con volumen SD virtual; pendrive real pendiente en el Fire TV.)*
+
+Resultados y decisión por riesgo en el [informe del spike](spike/f0-results.md).
 
 ## Riesgos y decisiones
 
@@ -213,7 +217,8 @@ El updater va en F1 a propósito: desde la v0.1 cada build de prueba llega sola 
 | Sin pantalla de acceso total en Android TV 11/12 y Fire OS 8 | Alto: la app queda limitada a multimedia en esos TV | Spike en fase 0; fallback ADB + modo MediaStore |
 | Sin TV real con Android 11+ (tu Fire TV es Fire OS 7) | Medio: el caso de permisos más difícil en TV solo se prueba en emulador | Emuladores Android TV 11, 12 y 14; valorar un Google TV barato antes de v1.0 |
 | Borrado accidental de algo importante | Alto: pérdida de confianza | Papelera de 7 días por defecto, nada sensible preseleccionado, confirmación con tamaño total |
-| Escaneo lento en TV de gama baja | Medio | Índice incremental, paralelismo limitado, resultados parciales en streaming |
+| Escaneo lento en TV de gama baja | Medio | Índice incremental, paralelismo limitado, resultados parciales en streaming. Spike: 100k archivos en 3,5 s con 4 hilos en emulador; falta la cifra en hardware de TV |
+| USB sin escritura en TV con Android < 11 (Fire OS 7) | Medio: en esos TV se puede analizar el pendrive pero no limpiarlo | Volumen marcado como solo lectura en la UI; confirmar en el Fire TV real |
 | Verificación de desarrollador de Google | Medio: instalación bloqueada en países afectados | Verificarse y registrar el paquete antes de v1.0 |
 | Pérdida del keystore de firma | Alto: las updates dejan de instalarse sobre la versión previa | Copia cifrada fuera de GitHub + secret en Actions |
 | Rate limit de la API de GitHub (60 peticiones/h sin token) | Bajo | Una comprobación cada 24 h, caché con `ETag` |
@@ -231,7 +236,9 @@ El updater va en F1 a propósito: desde la v0.1 cada build de prueba llega sola 
 | Informes de errores | Sentry opt-in, sin rutas ni nombres de archivo |
 | Actualizaciones | Avisar con changelog y pedir confirmación |
 | Canal beta | No; solo releases estables |
-| Dispositivos de prueba | Móvil Android 13+, Amazon Fire TV (Fire OS 7, Android 9), emuladores Android TV 11 y 14 |
+| Dispositivos de prueba | Móvil Android 13+, Amazon Fire TV (Fire OS 7, Android 9), emuladores Android TV 9, 11 y 14 |
+| Recorrido del sistema de archivos (spike F0) | `File.listFiles` con 4 hilos repartidos por carpeta de primer nivel; MediaStore solo en modo limitado |
+| USB en TV con API < 30 (spike F0) | Solo lectura (sin SAF en TV y escritura directa denegada) |
 
 **Cobertura de pruebas**: el Fire TV con Fire OS 7 cubre el modelo de permisos antiguo (`READ/WRITE_EXTERNAL_STORAGE`, sin scoped storage), la UX con mando, los pendrives USB y la instalación de updates en Fire OS. El móvil Android 13+ cubre el acceso total moderno. El hueco es un TV con Android 11 o superior sin pantalla de acceso total: solo se probará en emulador.
 
