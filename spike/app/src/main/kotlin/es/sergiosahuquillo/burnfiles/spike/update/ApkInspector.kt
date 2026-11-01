@@ -21,8 +21,18 @@ class ApkInspector(private val context: Context) {
 
     fun installed(): ApkFacts = facts(context.packageManager.getPackageInfo(context.packageName, flags))
 
-    fun archive(file: File): ApkFacts? =
-        context.packageManager.getPackageArchiveInfo(file.absolutePath, flags)?.let(::facts)
+    fun archive(file: File): ApkFacts? {
+        val facts = context.packageManager.getPackageArchiveInfo(file.absolutePath, flags)?.let(::facts) ?: return null
+        if (facts.certificates.isNotEmpty() || Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return facts
+        // Android 9 leaves signingInfo null for archives; the legacy flag still reports the signers.
+        @Suppress("DEPRECATION")
+        val signers =
+            context.packageManager
+                .getPackageArchiveInfo(file.absolutePath, PackageManager.GET_SIGNATURES)
+                ?.signatures
+                .orEmpty()
+        return facts.copy(certificates = signers.map { CertificateMatcher.fingerprint(it.toByteArray()) }.toSet())
+    }
 
     private fun facts(info: PackageInfo) = ApkFacts(
         packageName = info.packageName,
