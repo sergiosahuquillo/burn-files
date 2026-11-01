@@ -8,20 +8,22 @@ Guía para ejecutar el spike de punta a punta en la matriz de dispositivos y com
 
 Requisitos: JDK 17, Android SDK con `platforms;android-36` y `build-tools;36.0.0` (ya instalados), ADB.
 
-Instalar las imágenes de Android TV y crear los emuladores D3/D4 (y D5 opcional). `sdkmanager` y `avdmanager`
-vienen en *Android SDK Command-line Tools* (instalable desde Android Studio › SDK Manager › SDK Tools); también
-se pueden crear desde Android Studio › Device Manager eligiendo un perfil de TV:
+Instalar las imágenes de Android TV y crear los emuladores D3/D4 (y D5 opcional; API 28 sustituye al Fire TV
+si no está disponible). Las herramientas vienen en *Android SDK Command-line Tools* (Android Studio › SDK
+Manager › SDK Tools); también se pueden crear desde Android Studio › Device Manager eligiendo un perfil de TV.
+
+En Windows, `sdkmanager.bat` y `avdmanager.bat` parten los argumentos por `;` cuando se llaman desde Git
+Bash. Usar en su lugar la CLI `android` que viene en la misma carpeta:
 
 ```bash
-sdkmanager "system-images;android-30;android-tv;x86" "system-images;android-34;android-tv;x86"
+android sdk install "system-images;android-28;android-tv;x86" "system-images;android-30;android-tv;x86" "system-images;android-34;android-tv;x86"
 ```
 
-```bash
-avdmanager create avd -n tv_api30 -k "system-images;android-30;android-tv;x86" -d tv_1080p
-```
+Los AVD necesitan `hw.dPad = yes`, `hw.sdCard = yes` (la SD virtual hace de pendrive) y una partición de datos
+de al menos 4 GB para el conjunto sintético. Arrancar cada uno con:
 
 ```bash
-avdmanager create avd -n tv_api34 -k "system-images;android-34;android-tv;x86" -d tv_1080p
+emulator -avd BurnFiles_TV_API_30 -no-snapshot -no-boot-anim
 ```
 
 Conectar el Fire TV (D2) por red (Opciones de desarrollador › Depuración ADB activada):
@@ -79,7 +81,9 @@ En la primera ejecución, elegir el identificador de matriz (D1–D5).
 | V11 | Cambiar el sistema a tema oscuro/claro y a español/inglés | D1 y D4 | Todas las pantallas legibles y traducidas |
 | V12 | Benchmark › Limpiar datos | Todos | Diálogo con nº de elementos y tamaño; tras confirmar no queda `BurnFilesSpike/dataset/` |
 
-Publicar la release de prueba (V6), con la APK compilada con `-PspikeVersionCode=2 -PspikeVersionName=0.0.2`:
+Publicar la release de prueba (V6), con la APK compilada con `-PspikeVersionCode=2 -PspikeVersionName=0.0.2`.
+El `.sha256` lleva dos espacios entre hash y nombre; en Windows `sha256sum` escribe `hash *nombre`, así que
+conviene generarlo con `printf '%s  %s\n' "$(sha256sum f.apk | cut -d' ' -f1)" f.apk`:
 
 ```bash
 gh release create spike-v0.0.2 --prerelease --title "Spike F0 test build 0.0.2" burnfiles-spike-0.0.2.apk burnfiles-spike-0.0.2.apk.sha256

@@ -30,5 +30,7 @@ Spike F0 (proyecto Gradle independiente en `spike/`; ejecutar desde esa carpeta)
 - Tests de UI (requiere emulador/dispositivo): `./gradlew connectedDebugAndroidTest`
 - Lint: `./gradlew ktlintCheck detekt` (`./gradlew ktlintFormat` corrige el formato)
 - Strings en/es (desde la raíz): `python tools/check_strings.py spike/app/src/main/res`
+- Emuladores de TV: `emulator -avd BurnFiles_TV_API_28` (también `_30` y `_34`); móvil: `BurnFiles_Spike_API_36`
+- Resultados del spike: [docs/spike/f0-results.md](docs/spike/f0-results.md)
 
 El producto (F1) tendrá su propio build en la raíz; actualizar esta sección entonces.
