@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navegación -->
+    <string name="screen_access">Acceso al almacenamiento</string>
+    <string name="screen_access_desc">Obtiene el máximo nivel de acceso y registra cómo.</string>
+    <string name="screen_benchmark">Benchmark de escaneo</string>
+    <string name="screen_benchmark_desc">Mide la velocidad de cada estrategia con 100.000 archivos.</string>
+    <string name="screen_update">Instalar actualización</string>
+    <string name="screen_update_desc">Descarga, verifica e instala la release de prueba.</string>
+    <string name="screen_usb">Memoria USB</string>
+    <string name="screen_usb_desc">Escribe, lee y elimina un archivo de prueba en un pendrive.</string>
+    <string name="screen_results">Resultados</string>
+    <string name="screen_results_desc">Revisa y exporta el registro de resultados.</string>
+    <string name="home_device">%1$s · %2$s · API %3$d</string>
+    <string name="home_tv_help">Elige una prueba en el menú de la izquierda. Pulsa Atrás para volver aquí.</string>
+    <plurals name="home_results_count">
+        <item quantity="one">%d resultado</item>
+        <item quantity="many">%d resultados</item>
+        <item quantity="other">%d resultados</item>
+    </plurals>
+
+    <!-- Matriz -->
+    <string name="matrix_title">¿Qué dispositivo de pruebas es este?</string>
+    <string name="matrix_help">Se guarda con cada resultado para poder distinguir los de cada dispositivo.</string>
+    <string name="matrix_d1">D1 · Móvil Android 13+</string>
+    <string name="matrix_d2">D2 · Fire TV (Fire OS 7)</string>
+    <string name="matrix_d3">D3 · Emulador Android TV 11</string>
+    <string name="matrix_d4">D4 · Emulador Android TV 14</string>
+    <string name="matrix_d5">D5 · Emulador Android TV 12</string>
+    <string name="matrix_other">Otro dispositivo</string>
+
+    <!-- Acciones y resultados comunes -->
+    <string name="action_back">Atrás</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_stop">Detener</string>
+    <string name="action_copy">Copiar</string>
+    <string name="result_ok">Correcto</string>
+    <string name="result_failed">Fallido</string>
+    <string name="result_cancelled">Cancelado</string>
+    <string name="result_access_lost">Acceso perdido</string>
+    <string name="result_error">Error</string>
+    <string name="cancel_operation_title">¿Detener la operación?</string>
+    <string name="cancel_operation_body">La ejecución en curso se registrará como cancelada.</string>
+    <plurals name="confirm_delete_body">
+        <item quantity="one">Se eliminará definitivamente %1$s elemento (%2$s). No se puede deshacer.</item>
+        <item quantity="many">Se eliminarán definitivamente %1$s elementos (%2$s). No se puede deshacer.</item>
+        <item quantity="other">Se eliminarán definitivamente %1$s elementos (%2$s). No se puede deshacer.</item>
+    </plurals>
+
+    <!-- Acceso -->
+    <string name="access_current_level">Nivel de acceso actual</string>
+    <string name="access_current_step">Paso: %1$s</string>
+    <string name="access_result">Resultado</string>
+    <string name="access_final_level">Nivel final</string>
+    <string name="access_attempts">Intentos</string>
+    <string name="access_attempt_value">%1$s → %2$s</string>
+    <string name="action_start_diagnosis">Iniciar diagnóstico</string>
+    <string name="action_repeat_diagnosis">Repetir diagnóstico</string>
+    <string name="action_open_settings">Abrir ajustes</string>
+    <string name="action_check_again">Volver a comprobar</string>
+    <string name="action_request_permission">Pedir permiso</string>
+    <string name="action_continue_limited">Continuar sin acceso total</string>
+    <string name="level_full">Acceso a todos los archivos</string>
+    <string name="level_legacy_full">Lectura y escritura (antiguo)</string>
+    <string name="level_media_only">Solo multimedia</string>
+    <string name="level_none">Sin acceso</string>
+    <string name="step_app_settings">Ajustes de acceso total</string>
+    <string name="step_app_settings_help">Abre la pantalla de ajustes de esta app y activa «Permitir acceso para gestionar todos los archivos». Después vuelve.</string>
+    <string name="step_generic_settings">Lista de acceso total</string>
+    <string name="step_generic_settings_help">La pantalla específica de la app no está disponible. Abre la lista de apps con acceso a todos los archivos, busca esta app y actívala.</string>
+    <string name="step_adb">Conceder por ADB</string>
+    <string name="step_adb_help">Este dispositivo no tiene pantalla de ajustes para el acceso total. Ejecuta este comando desde un ordenador conectado por ADB y pulsa «Volver a comprobar».</string>
+    <string name="step_runtime_dialog">Permiso de almacenamiento</string>
+    <string name="step_runtime_dialog_help">Permite leer y escribir archivos en el diálogo del sistema.</string>
+    <string name="step_media_only">Acceso multimedia</string>
+    <string name="step_media_only_help">Modo limitado: permite el acceso a fotos, vídeos y audio para medir qué cubre.</string>
+    <string name="outcome_opened">Abierto</string>
+    <string name="outcome_activity_not_found">Pantalla no disponible</string>
+    <string name="outcome_security_exception">Bloqueado por el sistema</string>
+    <string name="outcome_granted">Concedido</string>
+    <string name="outcome_denied">Denegado</string>
+    <string name="outcome_no_effect">Sin efecto</string>
+    <string name="outcome_skipped">Omitido</string>
+    <string name="coverage_images">Imágenes visibles</string>
+    <string name="coverage_video">Vídeos visibles</string>
+    <string name="coverage_audio">Audios visibles</string>
+    <string name="coverage_downloads">Descargas visibles</string>
+
+    <!-- Benchmark -->
+    <string name="benchmark_dataset">Conjunto de datos</string>
+    <string name="benchmark_dataset_none">Aún no hay conjunto sintético.</string>
+    <plurals name="benchmark_dataset_complete">
+        <item quantity="one">Conjunto listo: %1$s archivo, %2$s.</item>
+        <item quantity="many">Conjunto listo: %1$s archivos, %2$s.</item>
+        <item quantity="other">Conjunto listo: %1$s archivos, %2$s.</item>
+    </plurals>
+    <string name="benchmark_dataset_incomplete">Conjunto incompleto: %1$s de %2$s archivos. Vuelve a generarlo para terminarlo o elimínalo.</string>
+    <string name="dataset_synthetic">Conjunto sintético</string>
+    <string name="dataset_real">Datos reales (solo lectura)</string>
+    <string name="benchmark_run">Ejecutar benchmark</string>
+    <string name="benchmark_generate">Generar datos</string>
+    <string name="benchmark_clean">Limpiar datos</string>
+    <string name="benchmark_clean_title">¿Eliminar el conjunto sintético?</string>
+    <string name="benchmark_progress_generating">Generando: %1$s de %2$s archivos</string>
+    <string name="benchmark_progress_cleaning">Eliminando: %1$s de %2$s archivos</string>
+    <string name="benchmark_progress_running">%1$s · ejecución %2$d de 3 · %3$s archivos · %4$s s</string>
+    <string name="benchmark_insufficient_space">No hay espacio suficiente: se necesitan %1$s y hay %2$s libres.</string>
+    <string name="benchmark_needs_full_access">Generar el conjunto requiere acceso total al almacenamiento. Ejecuta antes el diagnóstico de acceso.</string>
+    <string name="benchmark_done">Hecho.</string>
+    <string name="benchmark_results">Resultados (mediana de las ejecuciones correctas)</string>
+    <string name="benchmark_no_results">Aún no hay ejecuciones.</string>
+    <string name="benchmark_summary_label">%1$s · %2$s</string>
+    <string name="benchmark_summary_value">mediana %1$s s · peor %2$s s · %3$s archivos · %4$s archivos/s · %5$d ejecuciones</string>
+    <string name="strategy_nio_p1">Recorrido NIO · 1 hilo</string>
+    <string name="strategy_nio_p4">Recorrido NIO · 4 hilos</string>
+    <string name="strategy_io_p1">Listado de archivos · 1 hilo</string>
+    <string name="strategy_io_p4">Listado de archivos · 4 hilos</string>
+    <string name="strategy_mediastore">Índice multimedia</string>
+
+    <!-- Actualización -->
+    <string name="update_installed">Versión instalada</string>
+    <string name="update_version_value">%1$s (%2$d)</string>
+    <string name="update_last_step">Último paso</string>
+    <string name="update_check">Comprobar release de prueba</string>
+    <string name="update_download">Descargar</string>
+    <string name="update_install">Instalar</string>
+    <string name="update_cancel_body">Se descartará la descarga parcial.</string>
+    <string name="update_status_idle">Busca una build de prueba más reciente en GitHub.</string>
+    <string name="update_status_checking">Consultando GitHub…</string>
+    <string name="update_status_found">Build de prueba %1$s disponible (%2$s).</string>
+    <string name="update_status_up_to_date">La build instalada es la build de prueba más reciente.</string>
+    <string name="update_status_downloading">Descargando %1$s de %2$s</string>
+    <string name="update_status_verified">Checksum y firma verificados. Lista para instalar.</string>
+    <string name="update_status_needs_permission">Permite que esta app instale apps desconocidas y vuelve.</string>
+    <string name="update_status_installing">Esperando al instalador del sistema…</string>
+    <string name="update_status_failed">El último paso ha fallado. Consulta el resultado debajo.</string>
+    <string name="update_status_rate_limited">Límite de peticiones de GitHub alcanzado. Vuelve a intentarlo después de las %1$s.</string>
+    <string name="update_step_query">Consulta</string>
+    <string name="update_step_download">Descarga</string>
+    <string name="update_step_sha256">Comprobación SHA-256</string>
+    <string name="update_step_cert">Comprobación de firma</string>
+    <string name="update_step_permission">Permiso de instalación</string>
+    <string name="update_step_install">Instalación</string>
+    <string name="update_outcome_mismatch">No coincide</string>
+    <string name="update_outcome_network">Error de red</string>
+    <string name="update_outcome_rate_limited">Límite de peticiones</string>
+
+    <!-- USB -->
+    <string name="usb_volumes">Volúmenes extraíbles</string>
+    <string name="usb_none">No hay ningún volumen extraíble conectado.</string>
+    <string name="usb_volume_line">%1$s · %2$s libres de %3$s</string>
+    <string name="usb_volume_read_only">%1$s · solo lectura</string>
+    <string name="usb_run">Ejecutar prueba</string>
+    <string name="usb_rescan">Volver a buscar</string>
+    <string name="usb_probe_direct">Acceso directo a archivos</string>
+    <string name="usb_probe_tree">Selector de carpetas del sistema</string>
+    <string name="usb_op_detect">Detectar</string>
+    <string name="usb_op_write">Escribir</string>
+    <string name="usb_op_read_verify">Leer y verificar</string>
+    <string name="usb_op_delete">Eliminar</string>
+    <string name="usb_op_read_only">Solo lectura</string>
+    <string name="usb_op_removed">Volumen retirado</string>
+    <string name="usb_op_not_run">No ejecutado</string>
+    <string name="usb_error_kind">Error</string>
+
+    <!-- Resultados -->
+    <string name="results_share">Exportar</string>
+    <string name="results_copy">Copiar a Descargas</string>
+    <string name="results_copied">Copiado en Download/BurnFilesSpike/%1$s</string>
+    <string name="results_copy_failed">No se ha podido copiar el registro a Descargas.</string>
+    <string name="results_share_unavailable">No hay nada que compartir o ninguna app puede recibirlo. Usa el comando ADB de abajo.</string>
+    <string name="results_adb">Recuperar por ADB</string>
+    <string name="results_summary">Resumen</string>
+    <string name="results_summary_value">%1$d correctos de %2$d</string>
+    <string name="results_entries">Entradas</string>
+    <string name="results_empty">Aún no hay resultados.</string>
+    <string name="results_entry_title">%1$s · %2$s</string>
+    <string name="results_entry_pair">%1$s: %2$s</string>
+    <string name="results_entry_benchmark">%1$s · %2$s · %3$s s · %4$s archivos</string>
+    <string name="results_entry_usb">%1$s: escritura %2$s · lectura %3$s · borrado %4$s</string>
+</resources>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Burn Files Spike</string>
+
+    <!-- Navigation -->
+    <string name="screen_access">Storage access</string>
+    <string name="screen_access_desc">Get the highest storage access level and record how.</string>
+    <string name="screen_benchmark">Scan benchmark</string>
+    <string name="screen_benchmark_desc">Measure how fast each strategy lists 100,000 files.</string>
+    <string name="screen_update">Update install</string>
+    <string name="screen_update_desc">Download, verify and install the test release.</string>
+    <string name="screen_usb">USB drive</string>
+    <string name="screen_usb_desc">Write, read back and delete a test file on a USB drive.</string>
+    <string name="screen_results">Results</string>
+    <string name="screen_results_desc">Review and export the results log.</string>
+    <string name="home_device">%1$s · %2$s · API %3$d</string>
+    <string name="home_tv_help">Pick a test in the menu on the left. Press Back to return here.</string>
+    <plurals name="home_results_count">
+        <item quantity="one">%d result</item>
+        <item quantity="other">%d results</item>
+    </plurals>
+
+    <!-- Matrix -->
+    <string name="matrix_title">Which test device is this?</string>
+    <string name="matrix_help">It is stored with every result so that results from different devices can be told apart.</string>
+    <string name="matrix_d1">D1 · Android 13+ phone</string>
+    <string name="matrix_d2">D2 · Fire TV (Fire OS 7)</string>
+    <string name="matrix_d3">D3 · Android TV 11 emulator</string>
+    <string name="matrix_d4">D4 · Android TV 14 emulator</string>
+    <string name="matrix_d5">D5 · Android TV 12 emulator</string>
+    <string name="matrix_other">Other device</string>
+
+    <!-- Common actions and results -->
+    <string name="action_back">Back</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_copy">Copy</string>
+    <string name="result_ok">OK</string>
+    <string name="result_failed">Failed</string>
+    <string name="result_cancelled">Cancelled</string>
+    <string name="result_access_lost">Access lost</string>
+    <string name="result_error">Error</string>
+    <string name="cancel_operation_title">Stop the operation?</string>
+    <string name="cancel_operation_body">The current run will be recorded as cancelled.</string>
+    <plurals name="confirm_delete_body">
+        <item quantity="one">%1$s item (%2$s) will be permanently deleted. This cannot be undone.</item>
+        <item quantity="other">%1$s items (%2$s) will be permanently deleted. This cannot be undone.</item>
+    </plurals>
+
+    <!-- Access -->
+    <string name="access_current_level">Current access level</string>
+    <string name="access_current_step">Step: %1$s</string>
+    <string name="access_result">Result</string>
+    <string name="access_final_level">Final level</string>
+    <string name="access_attempts">Attempts</string>
+    <string name="access_attempt_value">%1$s → %2$s</string>
+    <string name="action_start_diagnosis">Start diagnosis</string>
+    <string name="action_repeat_diagnosis">Repeat diagnosis</string>
+    <string name="action_open_settings">Open settings</string>
+    <string name="action_check_again">Check again</string>
+    <string name="action_request_permission">Request permission</string>
+    <string name="action_continue_limited">Continue without full access</string>
+    <string name="level_full">All files access</string>
+    <string name="level_legacy_full">Read and write (legacy)</string>
+    <string name="level_media_only">Media only</string>
+    <string name="level_none">No access</string>
+    <string name="step_app_settings">All files access settings</string>
+    <string name="step_app_settings_help">Open the settings screen for this app and turn on \"Allow access to manage all files\". Then come back.</string>
+    <string name="step_generic_settings">All files access list</string>
+    <string name="step_generic_settings_help">The app-specific screen is not available. Open the list of apps with all files access, find this app and turn it on.</string>
+    <string name="step_adb">Grant with ADB</string>
+    <string name="step_adb_help">This device has no settings screen for all files access. Run this command from a computer connected over ADB, then press \"Check again\".</string>
+    <string name="step_runtime_dialog">Storage permission</string>
+    <string name="step_runtime_dialog_help">Allow reading and writing files in the system dialog.</string>
+    <string name="step_media_only">Media access</string>
+    <string name="step_media_only_help">Limited mode: allow access to photos, videos and audio so that their coverage can be measured.</string>
+    <string name="outcome_opened">Opened</string>
+    <string name="outcome_activity_not_found">Screen not available</string>
+    <string name="outcome_security_exception">Blocked by the system</string>
+    <string name="outcome_granted">Granted</string>
+    <string name="outcome_denied">Denied</string>
+    <string name="outcome_no_effect">No effect</string>
+    <string name="outcome_skipped">Skipped</string>
+    <string name="coverage_images">Images visible</string>
+    <string name="coverage_video">Videos visible</string>
+    <string name="coverage_audio">Audio files visible</string>
+    <string name="coverage_downloads">Downloads visible</string>
+
+    <!-- Benchmark -->
+    <string name="benchmark_dataset">Dataset</string>
+    <string name="benchmark_dataset_none">No synthetic dataset yet.</string>
+    <plurals name="benchmark_dataset_complete">
+        <item quantity="one">Dataset ready: %1$s file, %2$s.</item>
+        <item quantity="other">Dataset ready: %1$s files, %2$s.</item>
+    </plurals>
+    <string name="benchmark_dataset_incomplete">Incomplete dataset: %1$s of %2$s files. Generate again to finish it, or delete it.</string>
+    <string name="dataset_synthetic">Synthetic dataset</string>
+    <string name="dataset_real">Real data (read-only)</string>
+    <string name="benchmark_run">Run benchmark</string>
+    <string name="benchmark_generate">Generate data</string>
+    <string name="benchmark_clean">Delete data</string>
+    <string name="benchmark_clean_title">Delete the synthetic dataset?</string>
+    <string name="benchmark_progress_generating">Generating: %1$s of %2$s files</string>
+    <string name="benchmark_progress_cleaning">Deleting: %1$s of %2$s files</string>
+    <string name="benchmark_progress_running">%1$s · run %2$d of 3 · %3$s files · %4$s s</string>
+    <string name="benchmark_insufficient_space">Not enough free space: %1$s needed, %2$s available.</string>
+    <string name="benchmark_needs_full_access">Generating the dataset needs full storage access. Run the access diagnosis first.</string>
+    <string name="benchmark_done">Done.</string>
+    <string name="benchmark_results">Results (median of successful runs)</string>
+    <string name="benchmark_no_results">No runs yet.</string>
+    <string name="benchmark_summary_label">%1$s · %2$s</string>
+    <string name="benchmark_summary_value">median %1$s s · worst %2$s s · %3$s files · %4$s files/s · %5$d runs</string>
+    <string name="strategy_nio_p1">NIO walk · 1 thread</string>
+    <string name="strategy_nio_p4">NIO walk · 4 threads</string>
+    <string name="strategy_io_p1">File listing · 1 thread</string>
+    <string name="strategy_io_p4">File listing · 4 threads</string>
+    <string name="strategy_mediastore">Media index</string>
+
+    <!-- Update -->
+    <string name="update_installed">Installed version</string>
+    <string name="update_version_value">%1$s (%2$d)</string>
+    <string name="update_last_step">Last step</string>
+    <string name="update_check">Check test release</string>
+    <string name="update_download">Download</string>
+    <string name="update_install">Install</string>
+    <string name="update_cancel_body">The partial download will be discarded.</string>
+    <string name="update_status_idle">Look for a newer test build on GitHub.</string>
+    <string name="update_status_checking">Checking GitHub…</string>
+    <string name="update_status_found">Test build %1$s available (%2$s).</string>
+    <string name="update_status_up_to_date">The installed build is the newest test build.</string>
+    <string name="update_status_downloading">Downloading %1$s of %2$s</string>
+    <string name="update_status_verified">Checksum and signature verified. Ready to install.</string>
+    <string name="update_status_needs_permission">Allow this app to install unknown apps, then come back.</string>
+    <string name="update_status_installing">Waiting for the system installer…</string>
+    <string name="update_status_failed">The last step failed. See the result below.</string>
+    <string name="update_status_rate_limited">GitHub rate limit reached. Try again after %1$s.</string>
+    <string name="update_step_query">Query</string>
+    <string name="update_step_download">Download</string>
+    <string name="update_step_sha256">SHA-256 check</string>
+    <string name="update_step_cert">Signature check</string>
+    <string name="update_step_permission">Install permission</string>
+    <string name="update_step_install">Install</string>
+    <string name="update_outcome_mismatch">Mismatch</string>
+    <string name="update_outcome_network">Network error</string>
+    <string name="update_outcome_rate_limited">Rate limited</string>
+
+    <!-- USB -->
+    <string name="usb_volumes">Removable volumes</string>
+    <string name="usb_none">No removable volume connected.</string>
+    <string name="usb_volume_line">%1$s · %2$s free of %3$s</string>
+    <string name="usb_volume_read_only">%1$s · read-only</string>
+    <string name="usb_run">Run test</string>
+    <string name="usb_rescan">Scan again</string>
+    <string name="usb_probe_direct">Direct file access</string>
+    <string name="usb_probe_tree">System folder picker</string>
+    <string name="usb_op_detect">Detect</string>
+    <string name="usb_op_write">Write</string>
+    <string name="usb_op_read_verify">Read and verify</string>
+    <string name="usb_op_delete">Delete</string>
+    <string name="usb_op_read_only">Read-only</string>
+    <string name="usb_op_removed">Volume removed</string>
+    <string name="usb_op_not_run">Not run</string>
+    <string name="usb_error_kind">Error</string>
+
+    <!-- Results -->
+    <string name="results_share">Export</string>
+    <string name="results_copy">Copy to Downloads</string>
+    <string name="results_copied">Copied to Download/BurnFilesSpike/%1$s</string>
+    <string name="results_copy_failed">Could not copy the log to Downloads.</string>
+    <string name="results_share_unavailable">Nothing to share, or no app can receive it. Use the ADB command below.</string>
+    <string name="results_adb">Retrieve with ADB</string>
+    <string name="results_summary">Summary</string>
+    <string name="results_summary_value">%1$d OK of %2$d</string>
+    <string name="results_entries">Entries</string>
+    <string name="results_empty">No results yet.</string>
+    <string name="results_entry_title">%1$s · %2$s</string>
+    <string name="results_entry_pair">%1$s: %2$s</string>
+    <string name="results_entry_benchmark">%1$s · %2$s · %3$s s · %4$s files</string>
+    <string name="results_entry_usb">%1$s: write %2$s · read %3$s · delete %4$s</string>
+</resources>

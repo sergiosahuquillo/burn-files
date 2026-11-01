@@ -23,7 +23,12 @@ Package `es.sergiosahuquillo.burnfiles` · Kotlin 2.x · Jetpack Compose · GPL-
 
 ## Comandos
 
-<!-- Rellenar cuando exista el proyecto Gradle -->
+Spike F0 (proyecto Gradle independiente en `spike/`; ejecutar desde esa carpeta):
+
 - Build: `./gradlew assembleDebug`
-- Tests: `./gradlew test`
-- Lint: `./gradlew ktlintCheck detekt`
+- Tests unitarios: `./gradlew testDebugUnitTest`
+- Tests de UI (requiere emulador/dispositivo): `./gradlew connectedDebugAndroidTest`
+- Lint: `./gradlew ktlintCheck detekt` (`./gradlew ktlintFormat` corrige el formato)
+- Strings en/es (desde la raíz): `python tools/check_strings.py spike/app/src/main/res`
+
+El producto (F1) tendrá su propio build en la raíz; actualizar esta sección entonces.
