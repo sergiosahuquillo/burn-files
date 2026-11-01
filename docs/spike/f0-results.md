@@ -10,7 +10,7 @@ puede empezar.
   pre-release `spike-v0.0.2` para la prueba de actualización.
 - **Registros**: `results-<dispositivo>.jsonl` recuperados por ADB, válidos contra
   [results-log.schema.json](../../specs/001-f0-feasibility-spike/contracts/results-log.schema.json)
-  (52 entradas, 0 inválidas; copia en [results/](results/)) y sin rutas ni nombres de archivo.
+  (89 entradas, 0 inválidas; copia en [results/](results/)) y sin rutas ni nombres de archivo.
 
 ## Decisión por riesgo
 
@@ -18,11 +18,11 @@ puede empezar.
 |--------|----------|---------------|
 | R1 · Acceso total al almacenamiento en TV | **GO** | La cadena de permisos llega a acceso total en las tres versiones de Android TV probadas (9, 11 y 14). Donde la pantalla del sistema no existe (TV 11), el fallback por ADB funciona y se detecta al volver. Nunca se cierra la app. |
 | R2 · Rendimiento del escaneo | **GO** | Con 4 hilos se recorren 100.001 archivos en 3,5–4,8 s; extrapolado a 200.000, 7–10 s frente a los 30 s (móvil) y 60 s (TV) del objetivo. Margen amplio aunque el hardware real sea 3–5 veces más lento. |
-| R3 · Autoactualización con `PackageInstaller` | **Pendiente** | Ver [Actualización](#actualización): requiere la pre-release `spike-v0.0.2` publicada. |
+| R3 · Autoactualización con `PackageInstaller` | **GO** | La 0.0.1 se actualiza sola a la 0.0.2 desde GitHub Releases en los cuatro dispositivos, con SHA-256 y firma verificados. Dos fallos encontrados y resueltos o documentados: en Android 9 la firma del APK descargado no se leía (corregido) y en Android 11 conceder el permiso de instalación mata la app (F1 debe retomar la instalación). |
 | R4 · Escritura en pendrive USB desde TV | **GO_WITH_CHANGES** | Con acceso total (API ≥ 30) la escritura directa funciona. En Android TV no hay selector de carpetas del sistema (SAF) en ninguna versión, y en API < 30 la escritura directa da `EACCES`: en TV con Android 9 (Fire OS 7) el USB será **solo lectura** salvo que el Fire TV real demuestre lo contrario. |
 
 **Conclusión**: la fase 1 puede empezar. Ningún riesgo bloquea; R4 obliga a definir el USB de solo lectura en
-TV con API < 30 y R3 se cierra en cuanto se ejecute la prueba de actualización.
+TV con API < 30, y R3 deja dos requisitos concretos para el updater de F1.
 
 ## Matriz ejecutada
 
@@ -48,7 +48,7 @@ que el sistema trata igual que un pendrive.
 | V3 · Benchmark 100k | ✅ | — (decisión, ver desviaciones) | — (decisión) | ✅ |
 | V4 · Cancelación < 2 s | — | — | — | ✅ 76 ms |
 | V5 · Modo limitado (solo MediaStore) | — | — | ✅ | — |
-| V6 · Actualización 0.0.1 → 0.0.2 | Pendiente | Pendiente | Pendiente | Pendiente |
+| V6 · Actualización 0.0.1 → 0.0.2 | ✅ | ✅ tras corregir la firma | ✅ (2.º intento) | ✅ |
 | V8 · USB acceso directo | — (sin volumen) | ❌ escritura `EACCES` | ✅ 4/4 operaciones | ✅ 4/4 operaciones |
 | V8 · USB selector del sistema | — | ❌ no hay actividad | ❌ no hay actividad | ❌ stub del sistema |
 | V9 · Exportar y recuperar por ADB | ✅ | ✅ | ✅ | ✅ exportación = copia ADB |
@@ -101,9 +101,32 @@ del Fire TV (ver huecos).
 
 ## Actualización
 
-Pendiente de publicar la pre-release `spike-v0.0.2` (T065). Escenario: con la 0.0.1 instalada, «Comprobar
-release de prueba» → «Descargar» → «Instalar» y confirmar en el instalador del sistema; se espera
-`INSTALL / OK` y la versión 0.0.2 tras reiniciar.
+Pre-release `spike-v0.0.2` en GitHub (APK de 12,6 MB y su `.sha256`). Con la 0.0.1 instalada: «Comprobar
+release de prueba» → «Descargar» → «Instalar» → permitir «instalar apps desconocidas» → confirmar en el
+instalador del sistema. El éxito lo registra la propia 0.0.2 al arrancar (`appVersionCode: 2`).
+
+| Paso | D1 · móvil 16 | TV9 · TV 9 | D3 · TV 11 | D4 · TV 14 |
+|------|---------------|------------|------------|------------|
+| Consulta a la API de GitHub | OK | OK | OK | OK |
+| Descarga (redirecciones solo a hosts permitidos) | OK · 2,7 s | OK | OK | OK · 1,5 s |
+| SHA-256 | OK | OK | OK | OK |
+| Certificado de firma | OK | `MISMATCH` → corregido → OK | OK | OK |
+| Permiso de instalación | OK | OK | la app muere al concederlo | OK |
+| Instalación con `PackageInstaller` | OK | OK | OK | `USER_CANCELLED` → OK |
+
+- **Android 9 · firma no leída**: `getPackageArchiveInfo(…, GET_SIGNING_CERTIFICATES)` devuelve
+  `signingInfo = null` para un APK descargado, así que el conjunto de certificados quedaba vacío y la
+  comprobación fallaba (de forma segura: no se instalaba nada). Corregido en `ApkInspector`: si un archivo no
+  devuelve firmantes, se consulta con `GET_SIGNATURES`. Afecta directamente a Fire OS 7.
+- **Android 11 · el proceso muere** al conceder «instalar apps desconocidas» (`Killing … REQUEST_INSTALL_PACKAGES
+  changed`). La herramienta borra las descargas al arrancar, así que hubo que repetir la descarga. El updater
+  de F1 debe conservar el APK ya verificado y ofrecer «Instalar» directamente al volver.
+- **El diálogo del instalador** abre con el foco en «Cancelar» en todas las TV; con el mando hay que moverse
+  a «Actualizar». En D4 una pulsación directa canceló y la herramienta lo registró como `USER_CANCELLED`
+  con `installerStatus` 3, que valida también ese camino.
+- **Comparación de certificados**: la app instalada se compara con su historial de firmas
+  (`signingCertificateHistory`). Con una clave rotada en el futuro, F1 deberá aceptar el certificado actual
+  del historial, no exigir conjuntos idénticos.
 
 ## USB
 
@@ -159,8 +182,9 @@ números y decimales según el locale («11,0 s», «100.001 archivos»).
 ## Huecos conocidos
 
 - **Fire TV real (Fire OS 7)**: permisos, rendimiento en hardware de TV, montaje del pendrive y escritura USB,
-  e instalación con `PackageInstaller` en Fire OS. Es la principal validación pendiente; basta con repetir V1,
-  V3, V6 y V8 con la herramienta y añadir sus resultados a este informe.
+  e instalación con `PackageInstaller` en Fire OS (con la corrección de firma de Android 9). Es la principal
+  validación pendiente; basta con repetir V1, V3, V6 y V8 con la herramienta y añadir sus resultados a este
+  informe.
 - **Coste de inserción en el índice (Room)**: se mide en F2.
 - **TV real con Android 11+ sin pantalla de acceso total**: solo emulador (riesgo ya aceptado en el plan).
 - **Verificación de desarrollador de Google en Fire OS**: no se puede validar en el spike.
@@ -174,6 +198,8 @@ números y decimales según el locale («11,0 s», «100.001 archivos»).
 - Volúmenes: capacidad de escritura por volumen (`READ_WRITE` / `READ_ONLY`) calculada al detectarlo; en TV
   con API < 30, solo lectura.
 - UI de TV: las seis reglas de foco de este informe como criterios de aceptación de cada pantalla.
+- Updater: promover `ApkInspector` con el fallback de Android 9, persistir la descarga verificada para
+  sobrevivir a la muerte del proceso en Android 11 y comparar firmas por historial.
 - Herramientas: los emuladores `BurnFiles_TV_API_28/30/34` quedan creados para las pruebas de F1.
 - Constitución: no se proponen enmiendas. El USB de solo lectura en TV con API < 30 es una limitación de la
   plataforma que el principio IV (degradación elegante) ya cubre.

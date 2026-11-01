@@ -205,7 +205,7 @@ El updater va en F1 a propósito: desde la v0.1 cada build de prueba llega sola 
 
 - [x] App mínima que pide acceso total en móvil, emuladores Android TV 11 y 14, y tu Fire TV; resultado documentado por versión. *(Fire TV sustituido por un emulador Android TV 9; el dispositivo real queda pendiente.)*
 - [x] Benchmark de recorrido NIO vs `File.listFiles` vs MediaStore con 100k+ archivos.
-- [ ] Instalación de una APK descargada con `PackageInstaller` en móvil y TV.
+- [x] Instalación de una APK descargada con `PackageInstaller` en móvil y TV.
 - [x] Escritura en pendrive USB desde TV. *(Con volumen SD virtual; pendrive real pendiente en el Fire TV.)*
 
 Resultados y decisión por riesgo en el [informe del spike](spike/f0-results.md).

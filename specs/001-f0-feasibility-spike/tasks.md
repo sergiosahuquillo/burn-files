@@ -197,8 +197,8 @@ Proyecto Gradle independiente en `spike/` (ver *Structure Decision* del plan). A
 
 - [X] T063 [P] Revisar todas las pantallas en tema claro y oscuro y en en/es en D1 y D4; corregir contrastes por debajo de WCAG AA (quickstart V11) — *fila enfocada ilegible y tokens `inverse*` corregidos*
 - [X] T064 [P] Recorrido completo solo con mando en D2–D4 contra [ui-navigation.md](./contracts/ui-navigation.md) (quickstart V10) — *D2 sustituido por emulador TV API 28; seis fallos de foco corregidos*
-- [ ] T065 Compilar 0.0.1 y 0.0.2, generar los `.sha256` y publicar la pre-release `spike-v0.0.2` según [spike-release.md](./contracts/spike-release.md) (requiere confirmación del desarrollador antes de publicar)
-- [X] T066 Ejecutar los escenarios V1–V12 del [quickstart.md](./quickstart.md) en D1–D4 (y D5 si se dispone) y recuperar los `results-<matrixId>.jsonl` — *en emuladores; V6 pendiente de T065 y Fire TV real pendiente (ver informe)*
+- [X] T065 Compilar 0.0.1 y 0.0.2, generar los `.sha256` y publicar la pre-release `spike-v0.0.2` según [spike-release.md](./contracts/spike-release.md) (requiere confirmación del desarrollador antes de publicar) — *publicada por el desarrollador*
+- [X] T066 Ejecutar los escenarios V1–V12 del [quickstart.md](./quickstart.md) en D1–D4 (y D5 si se dispone) y recuperar los `results-<matrixId>.jsonl` — *en emuladores; Fire TV real pendiente (ver informe)*
 - [X] T067 Redactar `docs/spike/f0-results.md`: tabla dispositivo × prueba, resumen del benchmark por dispositivo, decisión `GO` / `GO_WITH_CHANGES` / `BLOCK` por riesgo con justificación y huecos conocidos de [research.md](./research.md#huecos-conocidos-se-trasladan-al-informe) (FR-021)
 - [X] T068 Actualizar `docs/plan-del-proyecto.md` y, si procede, proponer enmiendas a la constitución según las decisiones del informe; actualizar la sección *Comandos* de `CLAUDE.md`
 
