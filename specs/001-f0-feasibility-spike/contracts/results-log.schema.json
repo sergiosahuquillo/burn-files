@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sergiosahuquillo/burn-files/specs/001-f0-feasibility-spike/results-log.schema.json",
+  "title": "Burn Files spike F0 — results log entry (one JSON object per line)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "timestamp", "appVersionCode", "device", "test", "payload"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "appVersionCode": { "type": "integer", "minimum": 1 },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["matrixId", "manufacturer", "model", "sdkInt", "release", "uiMode"],
+      "properties": {
+        "matrixId": { "enum": ["D1", "D2", "D3", "D4", "D5", "OTHER"] },
+        "manufacturer": { "type": "string", "maxLength": 64 },
+        "model": { "type": "string", "maxLength": 64 },
+        "sdkInt": { "type": "integer", "minimum": 26 },
+        "release": { "type": "string", "maxLength": 16 },
+        "fireOs": { "type": ["string", "null"], "maxLength": 32 },
+        "uiMode": { "enum": ["MOBILE", "TV"] }
+      }
+    },
+    "test": { "enum": ["ACCESS", "BENCHMARK", "UPDATE", "USB"] },
+    "payload": {
+      "oneOf": [
+        { "$ref": "#/$defs/access" },
+        { "$ref": "#/$defs/benchmark" },
+        { "$ref": "#/$defs/update" },
+        { "$ref": "#/$defs/usb" }
+      ]
+    }
+  },
+  "$defs": {
+    "accessLevel": { "enum": ["FULL", "LEGACY_FULL", "MEDIA_ONLY", "NONE"] },
+    "access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempts", "finalLevel"],
+      "properties": {
+        "attempts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["step", "outcome", "levelAfter"],
+            "properties": {
+              "step": { "enum": ["APP_SETTINGS", "GENERIC_SETTINGS", "ADB", "RUNTIME_DIALOG", "MEDIA_ONLY"] },
+              "resolvable": { "type": ["boolean", "null"] },
+              "outcome": { "enum": ["OPENED", "ACTIVITY_NOT_FOUND", "SECURITY_EXCEPTION", "GRANTED", "DENIED", "NO_EFFECT", "SKIPPED"] },
+              "levelAfter": { "$ref": "#/$defs/accessLevel" }
+            }
+          }
+        },
+        "finalLevel": { "$ref": "#/$defs/accessLevel" },
+        "mediaCoverage": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "images": { "type": "integer", "minimum": 0 },
+            "video": { "type": "integer", "minimum": 0 },
+            "audio": { "type": "integer", "minimum": 0 },
+            "downloads": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "benchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy", "dataset", "repetition", "cache", "durationMs", "files", "folders", "bytes", "outcome"],
+      "properties": {
+        "strategy": { "enum": ["NIO_P1", "NIO_P4", "IO_P1", "IO_P4", "MEDIASTORE"] },
+        "dataset": { "enum": ["SYNTHETIC", "REAL_READ_ONLY"] },
+        "repetition": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "cache": { "enum": ["COLD", "WARM"] },
+        "durationMs": { "type": "integer", "minimum": 0 },
+        "files": { "type": "integer", "minimum": 0 },
+        "folders": { "type": "integer", "minimum": 0 },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "filesPerSecond": { "type": "number", "minimum": 0 },
+        "outcome": { "enum": ["OK", "CANCELLED", "ACCESS_LOST", "ERROR"] }
+      }
+    },
+    "update": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fromVersionCode", "toVersionCode", "step", "outcome"],
+      "properties": {
+        "fromVersionCode": { "type": "integer", "minimum": 1 },
+        "toVersionCode": { "type": "integer", "minimum": 1 },
+        "step": { "enum": ["QUERY", "DOWNLOAD", "VERIFY_SHA256", "VERIFY_CERT", "INSTALL_PERMISSION", "INSTALL"] },
+        "outcome": { "enum": ["OK", "MISMATCH", "NETWORK_ERROR", "RATE_LIMITED", "ACTIVITY_NOT_FOUND", "USER_CANCELLED", "FAILED"] },
+        "downloadBytes": { "type": "integer", "minimum": 0 },
+        "durationMs": { "type": "integer", "minimum": 0 },
+        "installerStatus": { "type": ["integer", "null"] }
+      }
+    },
+    "usb": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["volumeIndex", "probe", "detect", "write", "readVerify", "delete"],
+      "properties": {
+        "volumeIndex": { "type": "integer", "minimum": 0 },
+        "probe": { "enum": ["DIRECT", "DOCUMENT_TREE"] },
+        "capacityBytes": { "type": "integer", "minimum": 0 },
+        "freeBytes": { "type": "integer", "minimum": 0 },
+        "detect": { "$ref": "#/$defs/usbOp" },
+        "write": { "$ref": "#/$defs/usbOp" },
+        "readVerify": { "$ref": "#/$defs/usbOp" },
+        "delete": { "$ref": "#/$defs/usbOp" },
+        "errorKind": { "enum": ["EACCES", "EROFS", "ENOENT", "IO", "SECURITY", null] }
+      }
+    },
+    "usbOp": { "enum": ["OK", "FAILED", "READ_ONLY", "VOLUME_REMOVED", "ACTIVITY_NOT_FOUND", "NOT_RUN"] }
+  }
+}
