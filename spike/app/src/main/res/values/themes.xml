@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Window theme shown before Compose draws; follows the system light/dark setting. -->
+<resources>
+    <style name="Theme.Spike" parent="@android:style/Theme.Material.Light.NoActionBar" />
+</resources>

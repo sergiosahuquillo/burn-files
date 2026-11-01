@@ -1,0 +1,53 @@
+name: Spike F0
+
+on:
+  push:
+    paths:
+      - "spike/**"
+      - "tools/**"
+      - ".github/workflows/spike.yml"
+  pull_request:
+    paths:
+      - "spike/**"
+      - "tools/**"
+      - ".github/workflows/spike.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: spike
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Check string resources (en/es)
+        working-directory: .
+        run: python3 tools/check_strings.py spike/app/src/main/res
+
+      - name: Lint, unit tests and debug build
+        run: ./gradlew ktlintCheck detekt testDebugUnitTest assembleDebug
+
+      - name: Enforce APK size budget (15 MB)
+        run: |
+          size=$(stat -c%s app/build/outputs/apk/debug/app-debug.apk)
+          echo "APK size: $size bytes"
+          test "$size" -le 15728640
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: spike-reports
+          path: |
+            spike/app/build/reports
+            spike/app/build/test-results

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher/banner only. In-app colors live in ui/theme/Tokens.kt. -->
+<resources>
+    <color name="brand_background">#FF1E1B18</color>
+    <color name="brand_foreground">#FFFF7A3D</color>
+</resources>

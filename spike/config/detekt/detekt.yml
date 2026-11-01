@@ -1,0 +1,41 @@
+naming:
+  FunctionNaming:
+    # Composable functions are PascalCase.
+    ignoreAnnotated: ['Composable']
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9_]*'
+  MatchingDeclarationName:
+    # Compose files mix a small model/object with the composables that use it.
+    active: false
+
+complexity:
+  CyclomaticComplexMethod:
+    ignoreAnnotated: ['Composable']
+  LongMethod:
+    ignoreAnnotated: ['Composable']
+  LongParameterList:
+    functionThreshold: 8
+    constructorThreshold: 8
+    ignoreAnnotated: ['Composable']
+  TooManyFunctions:
+    # ViewModels expose one function per user action; the JSON codec one per type.
+    thresholdInClasses: 16
+    thresholdInObjects: 20
+    thresholdInFiles: 20
+    ignoreAnnotatedFunctions: ['Composable']
+
+style:
+  MaxLineLength:
+    maxLineLength: 120
+  MagicNumber:
+    ignoreEnums: true
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotated: ['Composable']
+    excludes: ['**/test/**', '**/androidTest/**']
+  UnusedPrivateMember:
+    ignoreAnnotated: ['Preview']
+  ReturnCount:
+    max: 4
+  ThrowsCount:
+    max: 4
